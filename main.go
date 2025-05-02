@@ -7,8 +7,12 @@ import (
 )
 
 func main() {
-	fmt.Println("impression counter system started.")
+	fmt.Println("uv counter system started.")
 
 	monitor.RunPprofServer()
+	monitor.RunPrometheusServer()
+
 	spine.WaitUntilSystemShutdown()
+
+	fmt.Println("uv counter system ended.")
 }
