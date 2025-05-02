@@ -15,7 +15,7 @@ const (
 )
 
 func Listener(addr string) net.Listener {
-	ln, err := net.Listen(nil, "tcp", addr)
+	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatalf("Failed to create listener: %v", err)
 	}
