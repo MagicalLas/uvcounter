@@ -15,7 +15,7 @@ const (
 )
 
 func Listener(addr string) net.Listener {
-	ln, err := lc.Listen(nil, "tcp", addr)
+	ln, err := net.Listen(nil, "tcp", addr)
 	if err != nil {
 		log.Fatalf("Failed to create listener: %v", err)
 	}
@@ -33,7 +33,6 @@ func (l *tcpListener) Accept() (net.Conn, error) {
 		return nil, err
 	}
 
-	// connection 단에서 setsockopt 적용
 	if tcpConn, ok := c.(*net.TCPConn); ok {
 		rawConn, err := tcpConn.SyscallConn()
 		if err != nil {
