@@ -16,6 +16,7 @@ func RunServer() {
 		CaseSensitive: true,
 		IdleTimeout:   60 * time.Minute,
 		AppName:       "uvcounter",
+		Concurrency:   1024 * 1024,
 	}
 	server := fiber.New(fiberConfig)
 
