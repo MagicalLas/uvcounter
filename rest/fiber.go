@@ -12,9 +12,10 @@ import (
 
 func RunServer() {
 	fiberConfig := fiber.Config{
-		Immutable:   true,
-		IdleTimeout: 60 * time.Minute,
-		AppName:     "uvcounter",
+		Immutable:     true,
+		CaseSensitive: true,
+		IdleTimeout:   60 * time.Minute,
+		AppName:       "uvcounter",
 	}
 	server := fiber.New(fiberConfig)
 
