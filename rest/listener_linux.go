@@ -6,6 +6,8 @@ import (
 	"log"
 	"net"
 	"syscall"
+
+	"golang.org/x/sys/unix"
 )
 
 const (
@@ -35,10 +37,10 @@ func setSocketOptionsForPerformance(c syscall.RawConn) (err error) {
 			log.Printf("Failed to set TCP_QUICKACK: %v", err)
 		}
 
-		//err = syscall.SetsockoptInt(int(fd), syscall.IPPROTO_TCP, unix.TCP_NODELAY, 1)
-		//if err != nil {
-		//	log.Printf("Failed to set TCP_NODELAY: %v", err)
-		//}
+		err = syscall.SetsockoptInt(int(fd), syscall.IPPROTO_TCP, unix.TCP_NODELAY, 1)
+		if err != nil {
+			log.Printf("Failed to set TCP_NODELAY: %v", err)
+		}
 	})
 	return
 }
