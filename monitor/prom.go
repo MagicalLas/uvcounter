@@ -3,12 +3,14 @@ package monitor
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"time"
+
 	"github.com/prometheus/client_golang/examples/middleware/httpmiddleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+
 	"gomod.usaken.org/uvcounter/spine"
-	"net/http"
-	"time"
 )
 
 var EnableMetric = true
