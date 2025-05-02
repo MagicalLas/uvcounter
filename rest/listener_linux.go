@@ -57,6 +57,11 @@ func setSocketOptionsForPerformance(c syscall.RawConn) (err error) {
 		if err != nil {
 			log.Printf("Failed to set TCP_NODELAY: %v", err)
 		}
+
+		err = syscall.SetsockoptInt(int(fd), syscall.SOL_SOCKET, syscall.SO_SNDBUF, 1<<20)
+		if err != nil {
+			log.Printf("Failed to set SO_SNDBUF: %v", err)
+		}
 	})
 	return
 }
