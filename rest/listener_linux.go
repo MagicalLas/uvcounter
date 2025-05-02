@@ -15,18 +15,35 @@ const (
 )
 
 func Listener(addr string) net.Listener {
-	lc := net.ListenConfig{
-		Control: func(network, address string, c syscall.RawConn) error {
-			return setSocketOptionsForPerformance(c)
-		},
-	}
-
 	ln, err := lc.Listen(nil, "tcp", addr)
 	if err != nil {
 		log.Fatalf("Failed to create listener: %v", err)
 	}
 
-	return ln
+	return &tcpListener{ln}
+}
+
+type tcpListener struct {
+	net.Listener
+}
+
+func (l *tcpListener) Accept() (net.Conn, error) {
+	c, err := l.Listener.Accept()
+	if err != nil {
+		return nil, err
+	}
+
+	// connection 단에서 setsockopt 적용
+	if tcpConn, ok := c.(*net.TCPConn); ok {
+		rawConn, err := tcpConn.SyscallConn()
+		if err != nil {
+			log.Printf("Failed to get raw conn: %v", err)
+			return c, err
+		}
+		setSocketOptionsForPerformance(rawConn)
+	}
+
+	return c, nil
 }
 
 func setSocketOptionsForPerformance(c syscall.RawConn) (err error) {
