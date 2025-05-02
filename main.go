@@ -11,6 +11,9 @@ import (
 func main() {
 	fmt.Println("uv counter system started.")
 
+	ballast := make([]byte, 10<<30)
+	_ = ballast
+
 	monitor.RunPprofServer()
 	monitor.RunPrometheusServer()
 
