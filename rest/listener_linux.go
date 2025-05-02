@@ -41,4 +41,5 @@ func setSocketOptionsForPerformance(c syscall.RawConn) (err error) {
 			log.Printf("Failed to set TCP_NODELAY: %v", err)
 		}
 	})
+	return
 }
