@@ -16,7 +16,7 @@ func init() {
 
 func Client() *redis.Client {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:       "0.0.0.0",
+		Addr:       "0.0.0.0:6379",
 		ClientName: "uvcounter",
 		Dialer: func(ctx context.Context, network, addr string) (net.Conn, error) {
 			dialer := &net.Dialer{
