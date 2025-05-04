@@ -41,6 +41,7 @@ func Client() *redis.Client {
 
 		},
 		OnConnect:             nil,
+		MaxActiveConns:        2,
 		Protocol:              3,
 		MaxRetries:            3,
 		DialTimeout:           time.Second,
